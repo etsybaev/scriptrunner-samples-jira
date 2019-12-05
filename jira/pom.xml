@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>atlassian-plugin</packaging>
+
+    <parent>
+        <groupId>com.adaptavist.pom</groupId>
+        <artifactId>scriptrunner-jira-standard</artifactId>
+        <version>19</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.onresolve.scriptrunner.assets</groupId>
+    <artifactId>sr-sample-plugin-jira</artifactId>
+    <version>1.1-SNAPSHOT</version>
+
+    <organization>
+        <name>Example Company</name>
+        <url>http://www.example.com/</url>
+    </organization>
+
+    <name>Jira Sample Plugin for ScriptRunner</name>
+    <description>ScriptRunner for Jira script plugin</description>
+
+    <properties>
+        <!-- Set your JIRA version here -->
+        <jira.version>8.5.0</jira.version>
+        <scriptrunner.version>5.6.8.1-jira8</scriptrunner.version> <!-- ScriptRunner for Jira -->
+
+        <product.host>localhost</product.host>
+        <product.port>2990</product.port>
+        <!-- Set logging levels for development here -->
+        <logging.levels>com.example;DEBUG,com.onresolve;DEBUG</logging.levels>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.aval.jira.plugins</groupId>
+            <artifactId>new-listener-plugin</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
+            <!--            <scope>compile</scope>-->
+            <scope>system</scope>
+            <systemPath>/home/ievgeniit/Develop/atlassian-custom-plugin/jira/jira-event-listener/target/new-listener-plugin-1.0.3-SNAPSHOT.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-jira-plugin</artifactId>
+                <configuration>
+                    <jvmArgs>-Xms512m -Xmx1g -XX:MaxPermSize=1g -XX:-UseGCOverheadLimit -server</jvmArgs>
+                    <applications>
+                        <!-- Uncomment these if you wish to include them -->
+
+                        <!-- Include Jira Software features -->
+                        <!--
+                        <application>
+                            <applicationKey>jira-software</applicationKey>
+                            <version>${jira.software.version}</version>
+                        </application>
+                        -->
+
+                        <!-- Include Jira Service Desk features -->
+                        <!--
+                        <application>
+                            <applicationKey>jira-servicedesk</applicationKey>
+                            <version>${jira.servicedesk.version}</version>
+                        </application>
+                        -->
+                    </applications>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <!-- This is required to find the parent pom and ScriptRunner dependencies -->
+        <repository>
+            <id>adaptavist-external</id>
+            <url>https://nexus.adaptavist.com/content/repositories/external</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>fail</checksumPolicy>
+            </releases>
+        </repository>
+    </repositories>
+</project>
